@@ -50,14 +50,17 @@ public class TeamListPresenter implements TeamListContract.teamListAction{
 
     @Override
     public void loadTeam(Constants.TeamListRequest request) {
-        if(request == Constants.TeamListRequest.BOTH){
-            //Get list here before calling show team
-            mView.showHomeTeam(homePlayers);
-            mView.showGuestTeam(guestPlayers);
-        }else if(request == Constants.TeamListRequest.HOME){
-            mView.showHomeTeam(homePlayers);
-        }else if(request == Constants.TeamListRequest.GUEST){
-            mView.showGuestTeam(guestPlayers);
+        switch (request){
+            case BOTH:
+                mView.showHomeTeam(homePlayers);
+                mView.showGuestTeam(guestPlayers);
+                break;
+            case HOME:
+                mView.showHomeTeam(homePlayers);
+                break;
+            case GUEST:
+                mView.showGuestTeam(guestPlayers);
+                break;
         }
     }
 
