@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:civ="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:civ="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:gravity="center"
+    android:orientation="horizontal"
     android:padding="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -12,19 +12,19 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/default_profile"
-        civ:civ_border_width="1dp"
-        civ:civ_border_color="#000"/>
+        civ:civ_border_color="#000"
+        civ:civ_border_width="1dp" />
 
     <CheckBox
         android:id="@+id/player_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="M. Opo"
         android:layout_marginLeft="10dp"
-        android:layoutDirection="rtl"
-        android:gravity="center_vertical"
-        android:checked="false"
-        android:focusable="false"
+        android:button="@null"
         android:clickable="false"
-        android:focusableInTouchMode="false"/>
+        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:text="M. Opo" />
 </LinearLayout>

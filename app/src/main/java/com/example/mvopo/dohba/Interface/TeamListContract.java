@@ -1,5 +1,6 @@
 package com.example.mvopo.dohba.Interface;
 
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.mvopo.dohba.Model.Constants;
@@ -30,5 +31,6 @@ public class TeamListContract {
     public interface teamListAction{
         void loadTeam(Constants.TeamListRequest request);
         void setListClickListener(ListView listView);
+        void setButtonClickListener(String TAG);
     }
 }

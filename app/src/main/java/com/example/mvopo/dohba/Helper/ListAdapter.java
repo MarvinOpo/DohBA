@@ -47,14 +47,17 @@ public class ListAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
+        if(convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
 
-        if(layoutId == R.layout.team_list_item) {
-            CircleImageView civ = convertView.findViewById(R.id.player_image);
-            final CheckBox name = convertView.findViewById(R.id.player_name);
+            if (layoutId == R.layout.team_list_item) {
+                CircleImageView civ = convertView.findViewById(R.id.player_image);
+                CheckBox name = convertView.findViewById(R.id.player_name);
 
-            name.setText(players.get(position).getName());
+                name.setText(players.get(position).getName());
+            }
         }
+
         return convertView;
     }
 }

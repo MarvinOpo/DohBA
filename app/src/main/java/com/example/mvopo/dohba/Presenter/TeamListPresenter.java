@@ -4,6 +4,7 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
@@ -27,6 +28,8 @@ public class TeamListPresenter implements TeamListContract.teamListAction{
     List<Player> homePlayers = new ArrayList<>();
     List<Player> guestPlayers = new ArrayList<>();
 
+    List<Player> selectedPlayers = new ArrayList<>();
+
     public TeamListPresenter(TeamListContract.teamListView teamListView){
         mView = teamListView;
 
@@ -47,7 +50,6 @@ public class TeamListPresenter implements TeamListContract.teamListAction{
         guestPlayers.add(new Player("11", "X. Xample", "11", "PF"));
     }
 
-
     @Override
     public void loadTeam(Constants.TeamListRequest request) {
         switch (request){
@@ -65,7 +67,7 @@ public class TeamListPresenter implements TeamListContract.teamListAction{
     }
 
     @Override
-    public void setListClickListener(final ListView listView) {
+    public void setListClickListener(ListView listView) {
         final int id = listView.getId();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,8 +78,18 @@ public class TeamListPresenter implements TeamListContract.teamListAction{
                 if(mSelectedItemCount < 5 || cbSelector.isChecked()) {
                     cbSelector.setChecked(!cbSelector.isChecked());
 
-                    if (cbSelector.isChecked()) mSelectedItemCount++;
-                    else mSelectedItemCount--;
+                    if (cbSelector.isChecked()){
+                        mSelectedItemCount++;
+
+                        if (id == R.id.home_lv) selectedPlayers.add(homePlayers.get(i));
+                        else selectedPlayers.add(guestPlayers.get(i));
+
+                    } else{
+                        mSelectedItemCount--;
+
+                        if (id == R.id.home_lv) selectedPlayers.remove(homePlayers.get(i));
+                        else selectedPlayers.remove(guestPlayers.get(i));
+                    }
 
                     mView.hideProceedButton();
 
@@ -99,5 +111,10 @@ public class TeamListPresenter implements TeamListContract.teamListAction{
                 }
             }
         });
+    }
+
+    @Override
+    public void setButtonClickListener(String TAG) {
+
     }
 }

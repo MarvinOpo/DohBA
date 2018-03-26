@@ -3,6 +3,7 @@ package com.example.mvopo.dohba.View.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,8 @@ public class TeamListFragment extends Fragment implements TeamListContract.teamL
     private ListAdapter mHomeAdapter, mGuestAdapter;
     private TeamListContract.teamListAction mPresenter;
 
-//    private LinearLayout mHomeListLayout, mGuestListLayout;
-    private ImageView mHomeDisable, mGuestDisable, mProceedBtn;
+    private LinearLayout mHomeListLayout, mGuestListLayout;
+    private ImageView mProceedBtnHome, mProceedBtnGuest;
 
     @Nullable
     @Override
@@ -43,13 +44,16 @@ public class TeamListFragment extends Fragment implements TeamListContract.teamL
         mLvHome = mView.findViewById(R.id.home_lv);
         mLvGuest = mView.findViewById(R.id.guest_lv);
 
-//        mHomeListLayout = mView.findViewById(R.id.home_list_layout);
-//        mGuestListLayout = mView.findViewById(R.id.guest_list_layout);
-        mHomeDisable = mView.findViewById(R.id.home_disable);
-        mGuestDisable = mView.findViewById(R.id.guest_disable);
-        mProceedBtn = mView.findViewById(R.id.proceed_btn);
+        mHomeListLayout = mView.findViewById(R.id.home_list_layout);
+        mGuestListLayout = mView.findViewById(R.id.guest_list_layout);
+        mProceedBtnHome = mView.findViewById(R.id.proceed_btn_home);
+        mProceedBtnGuest = mView.findViewById(R.id.proceed_btn_guest);
 
         mPresenter = new TeamListPresenter(this);
+
+
+        mPresenter.setListClickListener(mLvHome);
+        mPresenter.setListClickListener(mLvGuest);
 
         return mView;
     }
@@ -65,8 +69,6 @@ public class TeamListFragment extends Fragment implements TeamListContract.teamL
         mHomeAdapter = new ListAdapter(getContext(), R.layout.team_list_item, homePlayers);
         mLvHome.setAdapter(mHomeAdapter);
         mHomeAdapter.notifyDataSetChanged();
-
-        mPresenter.setListClickListener(mLvHome);
     }
 
     @Override
@@ -74,32 +76,26 @@ public class TeamListFragment extends Fragment implements TeamListContract.teamL
         mGuestAdapter = new ListAdapter(getContext(), R.layout.team_list_item, guestPlayers);
         mLvGuest.setAdapter(mGuestAdapter);
         mGuestAdapter.notifyDataSetChanged();
-
-        mPresenter.setListClickListener(mLvGuest);
     }
 
     @Override
     public void showHomeTeamList() {
-//        mHomeListLayout.setVisibility(View.VISIBLE);
-        mHomeDisable.setVisibility(View.GONE);
+        mHomeListLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showGuestTeamList() {
-//        mGuestListLayout.setVisibility(View.VISIBLE);
-        mGuestDisable.setVisibility(View.GONE);
+        mGuestListLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideHomeTeamList() {
-//        mHomeListLayout.setVisibility(View.INVISIBLE);
-        mHomeDisable.setVisibility(View.VISIBLE);
+        mHomeListLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void hideGuestTeamList() {
-//        mGuestListLayout.setVisibility(View.INVISIBLE);
-        mGuestDisable.setVisibility(View.VISIBLE);
+        mGuestListLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -109,11 +105,13 @@ public class TeamListFragment extends Fragment implements TeamListContract.teamL
 
     @Override
     public void showProceedButton() {
-        mProceedBtn.setVisibility(View.VISIBLE);
+        mProceedBtnHome.setVisibility(View.VISIBLE);
+        mProceedBtnGuest.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProceedButton() {
-        mProceedBtn.setVisibility(View.GONE);
+        mProceedBtnHome.setVisibility(View.GONE);
+        mProceedBtnGuest.setVisibility(View.GONE);
     }
 }
